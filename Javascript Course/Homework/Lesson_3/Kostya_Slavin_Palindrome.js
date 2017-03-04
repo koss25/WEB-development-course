@@ -1,4 +1,4 @@
-function checkPalindrom(string) {
+function checkPalindrom(string) {	
 	if (string[0] === undefined || string[0] === ' ') return 'Data is empty';
 	
 	var string = string.split(''),
@@ -10,7 +10,7 @@ function checkPalindrom(string) {
 		if (i <= lastEl-i) {
 			if (string[i] !== string[lastEl-i]) return false;
 		}
-	}
+	}	
 	return true;
 }
 
