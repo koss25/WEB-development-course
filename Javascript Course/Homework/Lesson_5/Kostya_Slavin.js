@@ -1,4 +1,5 @@
 function arrayGrow(array) {
+  if (array.length < 3) return 'add more elements to array';
 
   function randomInt(min, max) {
     var rand = min + Math.random() * (max + 1 - min);
@@ -23,3 +24,4 @@ console.log(arrayGrow([1,-2,5,56,46]));
 console.log(arrayGrow([1,3,2,1]));
 console.log(arrayGrow([1,3,2,16]));
 console.log(arrayGrow([-3,-1,16]));
+console.log(arrayGrow([-3,16]));
