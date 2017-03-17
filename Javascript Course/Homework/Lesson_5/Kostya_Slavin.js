@@ -6,7 +6,7 @@ function arrayGrow(array) {
     return rand;
    }
    
-   var rand = randomInt(0, array.length);
+   var rand = randomInt(0, array.length-1);
    console.log('deleted element index = '+ rand);
    
    array.splice(rand,1);
