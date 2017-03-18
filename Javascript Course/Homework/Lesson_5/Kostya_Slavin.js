@@ -1,14 +1,14 @@
 function arrayGrow(array) {
   if (array.length < 3) return 'add more elements to array';
   
-  var result, newAr = [];
+  var newAr = [];
   
   for (var i = 0; i < array.length; i++) {
     if (array[i] > array[i+1]) {
       newAr.push(array[i]);
     }
   }
- return result = newAr.length == 1;    
+ return newAr.length == 1;    
 }
 
 console.log(arrayGrow([1,2,1,2])); // true
