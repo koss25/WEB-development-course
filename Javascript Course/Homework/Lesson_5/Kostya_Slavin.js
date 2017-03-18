@@ -1,27 +1,17 @@
 function arrayGrow(array) {
   if (array.length < 3) return 'add more elements to array';
-
-  function randomInt(min, max) {
-    var rand = min + Math.random() * (max + 1 - min);
-    rand = Math.floor(rand);
-    return rand;
-   }
-   
-   var rand = randomInt(0, array.length-1);
-   console.log('deleted element index = '+ rand);
-   
-   array.splice(rand,1);
-   console.log('Array after delete ' + array);
-   
-   for (var i = 0; i < array.length; i++) {
-     if (array[i] > array[i+1]) 
-       return false;
-   }
-  return true;
- }
   
-console.log(arrayGrow([1,-2,5,56,46]));
-console.log(arrayGrow([1,3,2,1]));
-console.log(arrayGrow([1,3,2,16]));
-console.log(arrayGrow([-3,-1,16]));
-console.log(arrayGrow([-3,16]));
+  var result, newAr = [];
+  
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] > array[i+1]) {
+      newAr.push(array[i]);
+    }
+  }
+ return result = newAr.length == 1;    
+}
+
+console.log(arrayGrow([1,2,1,2])); // true
+console.log(arrayGrow([-1,-2,3])); // true
+console.log(arrayGrow([1,-2,5,56,46])); // false
+console.log(arrayGrow([-3,16])); // add more elements to array
