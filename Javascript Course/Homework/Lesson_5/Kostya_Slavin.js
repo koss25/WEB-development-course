@@ -1,7 +1,7 @@
 function arrayGrow(array) {
   if (array.length < 3) return 'add more elements to array';  
     for (var i = 0; i < array.length; i++) {
-      if (array[0] >= array[1] || (array[i] >= array[i+1] && i++ !== array.length) ) {
+      if (array[0] >= array[1] || (array[i] >= array[i+1] && i+1 !== array.length && array[i+1] !== array[i-1]) ) {
         array.splice(i,1);
           for (var j = 0; j < array.length; j++) {
             if (array[j] >= array[j+1]) {
@@ -9,9 +9,11 @@ function arrayGrow(array) {
             }
           }
        }
+      if (array[i+1] == array[i-1] && array[i] == array[i+2]) return false;
     }
   return true;
 }
+console.log(arrayGrow([1, 2, 3, 4, 99, 5, 6])); //true
 console.log(arrayGrow([1, 2, 3, 2])); //true
 console.log(arrayGrow([1, 3, 2])); //true
 console.log(arrayGrow([1, 2, 1, 2])); //false
