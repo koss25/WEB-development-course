@@ -1,7 +1,7 @@
 function getEstateCost(array) {
   var sum = 0;
   for (var i = 0; i < array.length; i++) {
-    for (var j = 0; j <= array.length; j++) {
+    for (var j = 0; j <= array[i].length; j++) {
       if (array[i][j] === 0 || array[i][j] === 'x') {
         array[i][j] = 'x';
           if (i+1 <= array.length-1)
