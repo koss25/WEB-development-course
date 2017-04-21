@@ -2,17 +2,17 @@ $(document).ready(function(){
 
 //Check email address
 $("#email").on('input', function(){
-  var email = $(this).val();  
-  if (email.length > 3) {    
+  var email = $(this).val();
+  if (email.length > 3) {
     $.ajax({
       url: 'send.php',
       type: 'POST',
-      data: {email: email},
-      success: function(res) {        
-        if (res === 'error') {
-          $('.help-block').css('display','block').text('Email already exist');          
+      data: {live: 1, email: email},
+      success: function(res) {
+        if (res === 'error' && email !== '') {
+          $('.help-block').css('display','block').text('Email already exist, try another');
         } else {
-          $('.help-block').css('display','none').text('');          
+          $('.help-block').css('display','none').text('');
         }
       },
       error: function() {
@@ -22,58 +22,66 @@ $("#email").on('input', function(){
   }
 });
 
-//Register user
-$('#register').on('click', function(event){  
+//User register
+$('#register').on('click', function(event){
+  $(this).prop('disabled', true).attr('value', 'wait...');
+   
   event.preventDefault();
+  
+  setTimeout(function() {
+    $('#register').prop('disabled', false).attr('value', 'Sign in');
+        }, 1500);
 
   let fname = $('#fname').val();
   let lname = $('#lname').val();
   let email = $('#email').val();
   let type = $('input[name=ticket]:checked').val();
-  
-  let  regExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        
-  if (checkData() || type === undefined || !regExp.test(email)) {    
-    $('.success').fadeOut(100);
-    $('.error').html(`<span> Error occurred </span><br /> 
-                            All fields must be filled and email must be 
-                            <span class="closeMes" id="close">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                            </span>`)
-               .css('display','block')
-               .delay(2500).fadeOut(500);
 
-    $('#close').on('click', function() {  
-      $('.error').css('display', 'none');    
+  let  regExp = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+
+  if (checkData() || type === undefined ) {
+    $('.success').fadeOut(100);
+    $('.error').html(`<span> Error occurred:</span><br>
+                  All fields must be filled and radio button - selected
+                  <span class="closeMes" id="close">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                  </span>`)
+               .css('display','block')
+               .delay(5000).fadeOut(500);
+
+    $('#close').on('click', function() {
+      $('.error').css('display', 'none');
     });
     
-  } else {    
+  } else {
+    var dataStr = JSON.stringify($('form').serialize());
     $.ajax({
       url: 'send.php',
       type: 'POST',
-      data: {fname: fname, lname: lname, email: email, type: type},
-      success: function(res) {        
-         if (res === 'success')  {
+      data: dataStr,
+      success: function(res) {
+         if (res === 'success') {
+           console.log(res);
             $('.error').fadeOut(100);
-            $('.container').css('display','none');            
-            $('.context_').html(`
-            <div class="well">
-            <h2 class="page-header text-center">Your are registered</h2>
-              <a href="?do=logout" class="btn btn-large btn-block btn-success">Logout</a>            
-            </div>`);
-            
+            $("form").trigger('reset');
+            $('.register').fadeIn(500)
+                          .html(`
+                            <h2 class="page-header text-center">
+                              Your are registered
+                            </h2>`)
+                          .fadeOut(1500);
          } else {
             $('.success').fadeOut(100);
-            $('.error').html(`<span> Error occurred </span><br /> 
-                              ${res}
-                              <span class="closeMes" id="close">
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                              </span>`)
+            $('.error').html(`<span>Error occurred:</span><br>
+                        ${res}
+                        <span class="closeMes" id="close">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>`)
                 .css('display','block')
-                .delay(2500).fadeOut(500);
+                .delay(5000).fadeOut(500);
 
-            $('#close').on('click', function() {  
-              $('.error').css('display', 'none');    
+            $('#close').on('click', function() {
+              $('.error').css('display', 'none');
             });
          }
       },
@@ -84,31 +92,43 @@ $('#register').on('click', function(event){
   }
 });
 
-
-$('form input[name="email"]').on('input', function() {
+//On input validate
+$('form input[type="email"]').on('input', function() {
   let regExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;      
   let email = $(this).val();
-  
-
-  if (regExp.test(email)) {    
-    $(this).removeClass('invalid').addClass('valid');    
+  if (regExp.test(email)) {
+    $(this).removeClass('invalid').addClass('valid');
   } else {
     $(this).removeClass('valid').addClass('invalid');
   }
-
 });
 
+$('form input[type="text"]').on('input', function() {
+if ($(this).attr('type') == 'text' && $(this).val() == '') {
+    $(this).removeClass('valid').addClass('invalid');
+  } else {
+    $(this).removeClass('invalid').addClass('valid');
+  }
+});
+
+$('form input[type="radio"]').on('change', function() {
+if ($('input[name=ticket]:checked').val() === undefined) {
+    $('.ticket').css('color','#b94a48');
+  } else {
+    $('.ticket').css('color','#333');
+  }
+});
 
 function checkData(){
   let error = false;
-  $('form input').each(function(i, el) {    
-    if ( $(el).attr('type') === 'text' && $(el).val() === '') {
+  $('form input').each(function(i, el) {
+    if ( ($(el).attr('type') === 'text' || $(el).attr('type') === 'email') && $(el).val() === '') {
      error = true;
       $(el).removeClass('valid').addClass('invalid');
     } else {
       $(el).addClass('valid').removeClass('invalid');
     }
-    if ($('input[name=ticket]:checked').val() === undefined) {        
+    if ($('input[name=ticket]:checked').val() === undefined) {
       $('.ticket').css('color','#b94a48');
      error = true;
     } else {
@@ -118,10 +138,4 @@ function checkData(){
   return error;
 }
 
-$('#logout').on('click', function() {
-  
 });
-
-});
-
-
