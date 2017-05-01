@@ -58,7 +58,7 @@
 <div class="container">
 	<div class="row">
 		<?php
-			require PATH.'\app\class\views\\'.$content_view;
+			require PATH.'/app/class/views/'.$content_view;
 		?>
 	</div>
 </div>
