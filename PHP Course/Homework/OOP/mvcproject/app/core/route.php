@@ -27,13 +27,13 @@ class Route {
 
 		$model_file = ucfirst($model_name).'.php';
 
-		$model_path = PATH.'\app\class\models\\'.$model_file;
+		$model_path = PATH.'/app/class/models/'.$model_file;
 		if (file_exists($model_path)) {
 			require $model_path;
 		}
 
 		$controller_file = ucfirst($controller_name).'.php';
-		$controller_path = PATH.'\app\class\controllers\\'.$controller_file;
+		$controller_path = PATH.'/app/class/controllers/'.$controller_file;
 		
 		try {
 			if (file_exists($controller_path)) {

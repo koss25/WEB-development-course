@@ -14,4 +14,4 @@ define('USER','root');
 
 define('PAS','');
 
-define('VIEW', PATH.'\app\class\views\\');
+define('VIEW', PATH.'/app/class/views/');
