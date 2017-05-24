@@ -8,12 +8,11 @@ class Route {
 		$action_name = 'index';
 		
 		$routes = explode('/', $_SERVER['REQUEST_URI']);
-		
+			
 		if (!empty($routes[1])) {
 			$controller_name = ucfirst($routes[1]);
 		}
 		
-
 		if (!empty($routes[2])) {
 			$action_name = $routes[2];
 		}
@@ -51,7 +50,7 @@ class Route {
 			if ( method_exists($controller, $action) ) {
 				$controller->$action();
 			} else {
-				throw new Exception($controller.'doesn\'t has '.$action. ' method');
+				throw new Exception($controller_name.' doesn\'t has '.$action. ' method');
 			}
 		} catch(Exception $e) {
 			$error = 'Error in line: '. $e->getLine() .', class: '. __CLASS__ .' - '. $e->getMessage();

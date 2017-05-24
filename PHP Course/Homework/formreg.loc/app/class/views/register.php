@@ -58,6 +58,7 @@
       <input type="text" name="captcha" class="form-control captcha" data-req="required"  placeholder="Enter code">
       <img class="imgcaptcha" src="captcha/captcha.php"> <i class="fa fa-refresh" aria-hidden="true" title="reload image"></i>
       <?php //echo $_SESSION['string']; ?>
+      <!--<div class="g-recaptcha" data-sitekey="6LfodCIUAAAAAPnyLq6xLO5-VPObC0L_OVZsVzkQ"></div>-->
       <input type="submit" id="register" class="btn btn-lg btn-primary btn-block" value="Sign in">
   </form>
 <div class="success"></div>

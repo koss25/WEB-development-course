@@ -13,6 +13,7 @@ ob_start();
 	<!--<link rel="stylesheet" href="http://php.localadvert.ru/css/styles.css"/>-->
 	<link rel="stylesheet" href="css/styles.css"/>
 	<title>Document</title>
+	<!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 </head>
 <body>
 
@@ -29,26 +30,18 @@ ob_start();
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<?php if($_SERVER['REQUEST_URI'] === '/'):?>
-				<li class="active"><a href="/">Home</a></li>
+				<?php if($_SERVER['REQUEST_URI'] === ''):?>
+				<li class="active"><a href="">Home</a></li>
 				<?php else:?>
 				<li><a href="/">Home</a></li>
 				<?php endif;?>
 
-				<?php if($_SERVER['REQUEST_URI'] === '/about'):?>
-				<li class="active"><a href="/about">About</a></li>
-				<?php else:?>
-				<li><a href="/about">About</a></li>
-				<?php endif;?>
-
-				
-
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<?php if($_SERVER['REQUEST_URI'] === '/register'):?>
-				<li class="active"><a href="/register">Register</a></li>
+				<?php if($_SERVER['REQUEST_URI'] === 'register'):?>
+				<li class="active"><a href="register">Register</a></li>
 				<?php else:?>
-				<li><a href="/register">Register</a></li>
+				<li><a href="register">Register</a></li>
 				<?php endif;?>
 			</ul>
 		</div>
@@ -62,7 +55,7 @@ ob_start();
 		?>
 	</div>
 </div>
-
+		<!--<script src="js/jquery.js"></script>-->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>	
 		<!--<script src="http://php.localadvert.ru/js/scripts.js"></script>-->
 		<script src="js/scripts.js"></script>

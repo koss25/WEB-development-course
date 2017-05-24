@@ -4,9 +4,6 @@ session_start();
 
 $img = imagecreatetruecolor(85, 32);
 
-$white = imagecolorallocate($img, 255, 255, 255);
-$black = imagecolorallocate($img, 55, 55, 55);
-$gray = imagecolorallocate($img, 150, 150, 150);
 $red = imagecolorallocate($img, 255, 0, 0);
 $pink = imagecolorallocate($img, 200, 0, 150);
 $blue =  imagecolorallocate($img, 144, 169, 224);
@@ -25,16 +22,27 @@ function randomStr($length) {
   return $str;
 }
 
+$colorAr1 = imagecolorallocate($img, rand(0,255), rand(0,255), rand(0,255));
+$colorAr2 = imagecolorallocate($img, rand(0,255), rand(0,255), rand(0,255));
+$colorAr3 = imagecolorallocate($img, rand(0,255), rand(0,255), rand(0,255));
+
 for($i = 1; $i <= rand(1,5); $i++) {
-  $color = (rand(1,2) == 1) ? $pink : $red;
-  imageline($img, rand(5,70), rand(2,20), rand(5,70)+5, rand(5,20)+5, $color);
+  $color = (rand(1,2) == 1) ? $red : $pink;
+  imageline($img, rand(5,70), rand(2,20), rand(5,75)+5, rand(5,20)+5, $color);
 }
 
 imagefill($img, 0, 0, $blue);
-$string = randomStr(rand(5,7));
+$string1 = randomStr(rand(1,2));
+$string2 = randomStr(rand(1,2));
+$string3 = randomStr(rand(1,2));
+$string = $string1.$string2.$string3;
 $_SESSION['string'] = $string;
 
-imagettftext($img, 11, 0, 10, 20, $black, "roboto.ttf", $string);
+
+
+imagettftext($img, 11, rand(5,30), 5, 25, $colorAr1, "roboto.ttf", $string1);
+imagettftext($img, 11, rand(-5,-35), 25, 10, $colorAr2, "times.ttf", $string2);
+imagettftext($img, 11, rand(-5,-35), 50, 15, $colorAr3, "times.ttf", $string3);
 
 header("Content-type: image/png");
 imagepng($img);
