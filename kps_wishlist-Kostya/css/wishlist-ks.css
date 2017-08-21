@@ -1,0 +1,20 @@
+.kps_class a {
+	color: #f57c00 !important;
+	transition:  all .5s;
+}
+
+.kps_class a:hover {
+	color: #ffa726 !important;
+}
+
+.kps_class div {
+	margin-top: -10px;
+}
+
+i {
+	margin-left: 5px;
+	font-size: 40px !important;
+	position: relative;
+    top: 9px;
+    right: 5px;
+}
